@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instrument store</title>
+    <link href="app.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="app">
+    <h1>Instruments Store</h1>
+    <div class="cart">
+        <button @click="showForm">Add New Instrument</button>
+        <div>Added in Cart: {{carts.length}} <button @click="emptyCart">Empty Your card</button></div>
+        <ul v-for="cart in carts">
+            <li>name:{{cart.name}}</li>
+        </ul>
+    </div>
+    {{instruments.length}}
+    <div class="main" v-if="isEmpty">
+        <div class="container" v-for="instrument in instruments" :key="instrument.id" :class="instrument.color">
+            <h2>{{instrument.name}}</h2>
+            <img :src="instrument.img" :alt="instrument.name">
+            <div class="description">
+                <p>Type:{{instrument.type}}</p>
+                <p>Price: ${{instrument.price}}</p>
+                <p>Brand: {{instrument.brand}}</p>
+                <button @click="addToCart(instrument)">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+    <div v-else>
+        <h1>Store is Empty</h1>
+    </div>
+    <br><br><br>
+    <div class="new-items" v-if="!isForm">
+
+        <h1>Add New Instrument</h1>
+        <form>
+            <label>Name:</label>
+            <input type="text" name="name" v-model="name" placeholder="name"><br><br>
+            <label>Select Type:</label><br><br>
+            <input type="radio" id="classicalGuitar" value="Classical Guitar" v-model="type">
+            <label for="one">Classical Guitar</label><br>
+            <input type="radio" id="electricGuitar" value="Electric Guitar" v-model="type">
+            <label for="one">Electric Guitar</label><br>
+            <input type="radio" id="bassGuitar" value="Bass Guitar" v-model="type">
+            <label for="one">Bass Guitar</label><br>
+            <input type="radio" id="acousticGuitar" value="Acoustic Guitar" v-model="type">
+            <label for="one">:Acoustic Guitar</label><br><br><br>
+            <label>Select Brand:</label><br><br>
+            <input type="radio" id="yamaha" value="YAMAHA" v-model="brand">
+            <label for="one">YAMAHA</label><br>
+            <input type="radio" id="fender" value="Fender" v-model="brand">
+            <label for="one">Fender</label><br>
+            <input type="radio" id="maton" value="Maton" v-model="brand">
+            <label for="one">Maton</label><br><br><br>
+            <input type="submit" @click.prevent="submitForm" value="Submit">
+        </form>
+    </div>
+    <br><br><br>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
